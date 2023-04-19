@@ -7,19 +7,22 @@ import pynecone as pc
 from pcconfig import config
 
 """DATAS TO TEST"""
+class Data(pc.Base):
+    name : str
+    value : list[int]
 
-DATA1 ={
-        "Revenue Service": [0,100],
-        "Revenue License": [100,120],
-        "Costs Azure": [70, 120],
-        "Costs human": [30, 70],
-        "Current Margin": [0, 30],
-    }
 
-DATA2 ={
-        "Revenue Service": [0,100],
-        "Revenue License": [100,120],
-    }
+DATA_BAR_1 =[
+    Data(name="Revenue Service", value=[0,100]),
+    Data(name="Revenue License", value=[100,120]),
+    Data(name="Costs Azure", value=[70, 120]),
+    Data(name="Costs human", value=[30, 70]),
+    Data(name="Current Margin", value=[0, 30]),
+]
+DATA_BAR_2 =[
+    Data(name="Revenue Service", value=[0,100]),
+    Data(name="Revenue License", value=[100,120]),
+]
 DATA_CORR = {
     "Solution definition": [0, 3],
     "Market maturity": [2, 3],
@@ -27,12 +30,12 @@ DATA_CORR = {
 }
 
 _ACCORDION_PARAMS_ORIGIN = [
-    {"title": "Project 1", "step": "1", "country": "Belgium", "owner": "John Doe", "created": "2021-01-01", "datas": DATA1},
-    {"title": "Project 2", "step": "3", "country": "France", "owner": "Delaware", "created": "2022-01-01", "datas": DATA2},
-    {"title": "Project 3", "step": "2", "country": "Germany", "owner": "BNP", "created": "2023-01-01", "datas": DATA1},
-    {"title": "Project 4", "step": "2", "country": "Belgium", "owner": "John Doe", "created": "2021-01-01", "datas": DATA2},
-    {"title": "Project 5", "step": "1", "country": "France", "owner": "Delaware", "created": "2022-01-01", "datas": DATA1},
-    {"title": "Project 6", "step": "3", "country": "Germany", "owner": "BNP", "created": "2023-01-01", "datas": DATA2},
+    {"title": "Project 1", "step": "1", "country": "Belgium", "owner": "John Doe", "created": "2021-01-01", "datas": DATA_BAR_1},
+    {"title": "Project 2", "step": "3", "country": "France", "owner": "Delaware", "created": "2022-01-01", "datas": DATA_BAR_2},
+    {"title": "Project 3", "step": "2", "country": "Germany", "owner": "BNP", "created": "2023-01-01", "datas": DATA_BAR_1},
+    {"title": "Project 4", "step": "2", "country": "Belgium", "owner": "John Doe", "created": "2021-01-01", "datas": DATA_BAR_2},
+    {"title": "Project 5", "step": "1", "country": "France", "owner": "Delaware", "created": "2022-01-01", "datas": DATA_BAR_1},
+    {"title": "Project 6", "step": "3", "country": "Germany", "owner": "BNP", "created": "2023-01-01", "datas": DATA_BAR_2},
 ]
 
 """SETUP OPTIONS SELECT"""
@@ -49,7 +52,7 @@ class Item(pc.Base):
     country : str
     owner : str
     created : str
-    datas : dict[str, list[int]]
+    datas : list[Data]
 
 
 """STATE SETUP"""
@@ -85,8 +88,8 @@ class FilterState(State):
         fig = go.Figure()
         if self.get_items:
             datas = self.get_items[0].datas
-            for key in datas:
-                    fig.add_trace(go.Bar(x=[key], y=[datas[key][1]-datas[key][0]],base=datas[key][0]))
+            for data in datas:
+                fig.add_trace(go.Bar(x=[data.name], y=[data.value[1]-data.value[0]],base=data.value[0]))
         return fig
     
     @pc.var
