@@ -237,20 +237,20 @@ def accordion_item(item : Item) -> pc.Component:
             ),
             pc.hstack(
                 pc.vstack(
-                    pc.plotly(data = FilterState.get_bar_fig, width="auto"),
-                    pc.text(FilterState.item.title),
-                    # width="33%",
+                    pc.plotly(data = FilterState.get_bar_fig, width="auto", layout = {"showlegend":False, "width":"auto"}),
+                    width="40%",
                 ),
                 pc.vstack(
-                    pc.plotly(data = FilterState.get_correlation_fig, width="auto"),
+                    pc.plotly(data = FilterState.get_correlation_fig, width="auto", layout = {"showlegend":True, "width":400}),
                     pc.text("MRL"),
-                    # width="33%",
+                    width="30%",
                 ),
                 pc.vstack(
-                    pc.plotly(data = FilterState.get_correlation_fig2, width="auto"),
+                    pc.plotly(data = FilterState.get_correlation_fig2, width="auto", layout = {"showlegend":True, "width":400}),
                     pc.text("TRL"),
-                    # width="33%",
+                    width="30%",
                 ),
+                justify="space-evenly",
             ),
         ),
         on_focus = FilterState.setter_item(item),      
