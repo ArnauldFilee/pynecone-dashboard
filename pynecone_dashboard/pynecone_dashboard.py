@@ -6,7 +6,7 @@ import pynecone as pc
 
 from pcconfig import config
 
-"""CONST"""
+#   CONST
 MIN_VALUE_RANGESLIDER = 0
 MAX_VALUE_RANGESLIDER = 5
 BASE_VALUE_RANGESLIDER = 3
@@ -30,7 +30,7 @@ class Item(pc.Base):
     data_trl_corr_fig: list[Data]
 
 
-"""DATAS TO TEST"""
+#   DATAS TO TEST
 
 DATA_BAR_1 = [
     Data(name="Revenue Service", value=[0, 100]),
@@ -126,14 +126,14 @@ _ACCORDION_PARAMS_ORIGIN = [
     },
 ]
 
-"""SETUP OPTIONS SELECT"""
+#   SETUP OPTIONS SELECT
 OPTIONS_PHASES = list(set(["Phase " + invest["step"] for invest in _ACCORDION_PARAMS_ORIGIN]))
 OPTIONS_PHASES.sort()
 OPTIONS_COUNTRIES = list(set([invest["country"] for invest in _ACCORDION_PARAMS_ORIGIN]))
 OPTIONS_COUNTRIES.sort()
 
 
-"""STATE SETUP"""
+#   STATE SETUP
 
 
 class State(pc.State):
@@ -225,13 +225,13 @@ class FilterState(State):
             "width": 400,
         }
 
-    """SETTER FOR ITEM (set following the click on the accordion)"""
+    #   SETTER FOR ITEM (set following the click on the accordion)
 
     def setter_item(self, item: Item):
         self.item = item
 
 
-"""SETUP FILTERS"""
+#   SETUP FILTERS
 
 
 def header() -> pc.Component:
@@ -291,7 +291,7 @@ def header() -> pc.Component:
     )
 
 
-""" SET UP ACCORDION ITEMS"""
+#   SET UP ACCORDION ITEMS
 
 
 def accordion_item(item: Item) -> pc.Component:
@@ -347,7 +347,7 @@ def accordion_item(item: Item) -> pc.Component:
     )
 
 
-"""SET UP ACCORDION"""
+#   SET UP ACCORDION
 
 
 def accordion() -> pc.Component:
@@ -357,7 +357,7 @@ def accordion() -> pc.Component:
     )
 
 
-"""SET UP PAGE"""
+#   SET UP PAGE
 
 
 def index() -> pc.Component:
